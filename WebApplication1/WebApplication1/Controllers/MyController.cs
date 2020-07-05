@@ -55,9 +55,13 @@ namespace WebApplication1.Controllers
             return Ok(actions);
         }
 
-        [HttpPost("actions/1/fire-trucks")]
-        public IActionResult addTruckToAction(AddTruckToActionRequest request)
+        [HttpPost("actions/{id}/fire-trucks")]
+        public IActionResult addTruckToAction(int id, AddTruckToActionRequest request)
         {
+            if (id != request.IdAction)
+            {
+                return BadRequest("Niepoprawne id akcji");
+            }
 
             FireTruck fireTruck;
             Models.Action action;
